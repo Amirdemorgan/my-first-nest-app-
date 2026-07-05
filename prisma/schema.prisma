@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url    = env("DATABASE_URL")
 }
 
 model User {
@@ -12,12 +12,17 @@ model User {
   email     String   @unique
   password  String
   name      String?
+  role      Role     @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   tasks Task[]
 
   @@map("users")
+}
+enum Role {
+  USER
+  ADMIN
 }
 
 model Task {
